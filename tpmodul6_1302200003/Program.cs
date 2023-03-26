@@ -21,7 +21,8 @@ public class SayaTubeVideo
 
     public SayaTubeVideo(String judul)
     {
-
+        Contract.Requires(title != null);
+        Contract.Requires(title.Length < 100);
         Random ids = new Random();
         this.title = judul;
         id = ids.Next(0, 100000);
@@ -30,7 +31,15 @@ public class SayaTubeVideo
 
     public void IncreasePlayCount(int i)
     {
+        try
+        {
+            if (i >= 10000000) throw new Exception("Melebihi limit angka");
             PlayCount = PlayCount + i;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
 
     }
 
